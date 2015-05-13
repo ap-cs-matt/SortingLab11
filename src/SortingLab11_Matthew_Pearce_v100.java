@@ -2,10 +2,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class SortingLab11_Matthew_Pearce {
+
+public class SortingLab11_Matthew_Pearce_v100 {
+
 	public static void main(String args[]) throws IOException {
 		List studentArray = new List(100);
 		studentArray.getList();
@@ -34,7 +35,8 @@ public class SortingLab11_Matthew_Pearce {
 			studentArray.displayStudent(index); // displays the information
 												// forthe found student
 			studentArray.delete(index); // remove the same student from the
-										// array
+				
+			studentArray.idSort();// array
 			studentArray
 					.display("STUDENTS SORTED IN ASCENDING ORDER BY ID# WITHOUT STUDENT# "
 							+ studentID);
@@ -132,9 +134,12 @@ class List {
 				.println("============================================================");
 
 		for (int k = 0; k < size; k++)
+			
+			if (student[k] != null){
 			System.out.println(student[k].id + "          " + student[k].name
 					+ spaces(student[k].name) + student[k].age + "          "
 					+ output.format(student[k].gpa));
+			}
 	}
 
 	public void pause() {
@@ -194,9 +199,11 @@ class List {
 		do {
 			sorted = true;
 			for (int q = 0; q < size - p; q++)
+				if (student[q] != null && student[q+1] != null){
 				if (student[q].getId() > student[q + 1].getId()) {
 					swap(q, q + 1);
 					sorted = false;
+				}
 				}
 			p++;
 		} while (!sorted);
@@ -225,6 +232,7 @@ class List {
 			return -1;
 	}
 
+	
 	public void delete(int index) {
 		// Precondition: "index" stores the index of a student object that
 		// exists in the "student" array.
@@ -234,10 +242,10 @@ class List {
 		
 		int location = search(index);
 		student[index] = null;
-		Person[] tempArray = null; 
-		System.arraycopy(student, 0, tempArray, 0, student.length );
+		swap(index, student.length-1);
+		//Person[] tempArray = null; 
+		//System.arraycopy(student, 0, tempArray, 0, student.length );
 		
 
 	}
-
 }
